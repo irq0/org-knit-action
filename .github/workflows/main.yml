@@ -11,8 +11,6 @@ jobs:
       - name: Export org files
         uses: ./
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: knit
           export: html, pdf, md
           tangle: true
           keep_files: false
