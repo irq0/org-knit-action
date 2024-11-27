@@ -19,7 +19,6 @@ RUN echo "Install utilities" &&\
   echo "\e[1A\e[K\033[1;34mInstall utilities\033[0m" &&\
   apt-get install --no-install-recommends -y \
   gcc \
-  sqlite \
   sqlite3 \
   ripgrep \
   xclip \
