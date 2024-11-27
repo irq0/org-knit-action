@@ -22,21 +22,9 @@ inputs:
   files:
     description: List of Org file globs to act on. All .org files by default
     default: "**/*.org"
-  github_token:
-    description: Use the generated GITHUB_TOKEN for pushing to the remote branch.
-    default: false
-  branch:
-    description: Branch to push files to. Will use the default branch unless told otherwise.
-    default: true
-  force_orphan:
-    description: Keep only the latest commit on the specified branch.
-    default: false
   keep_files:
     description: When using a non-default branch, keep non-org-related files.
     default: true
-  commit_message:
-    description: 'Commit message to use. "!#!" is replaced with the triggering commit''s short hash.'
-    default: "Knit: !#!"
   fragile:
     description: Fail the action at the first sign of trouble, or power on through.
     default: true
@@ -51,9 +39,5 @@ runs:
     - ${{ inputs.tangle }}
     - ${{ inputs.export }}
     - ${{ inputs.files }}
-    - ${{ inputs.github_token }}
-    - ${{ inputs.branch }}
-    - ${{ inputs.force_orphan }}
     - ${{ inputs.keep_files }}
-    - ${{ inputs.commit_message }}
     - ${{ inputs.fragile }}

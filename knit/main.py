@@ -1,6 +1,6 @@
 #!/usr/bin/env -S python3 -u
 
-import inputs, setup, push, knit
+import inputs, setup, knit
 from colour import *
 
 import concurrent.futures
@@ -17,9 +17,6 @@ print(cyan | "Starting org-knit")
 
 I = inputs.Inputs(*sys.argv[1:])
 
-I.args["name"] = push.git_result(github_work_dir, "log", "-1", "--format=%an", "HEAD")
-I.args["email"] = push.git_result(github_work_dir, "log", "-1", "--format=%ae", "HEAD")
-
 print("::group::configuration")
 print(I.pretty_print())
 print("::endgroup::")
@@ -30,11 +27,6 @@ if I.config:
     print("::endgroup::")
 else:
     setup.empty_config()
-
-if I.commit_message and I.branch and not I.github_token:
-    print(red | "GitHub Token missing, will not be able to create commit.")
-    exit(1)
-
 
 work_dir = Path("/tmp/workspace")
 
@@ -124,11 +116,6 @@ with concurrent.futures.ThreadPoolExecutor() as executor:
                 )
 
 print("::endgroup::")
-
-if I.commit_message and I.branch:
-    print("::group::pushing")
-    push.push(work_dir, I)
-    print("::endgroup::")
 
 if exit_code == 0:
     print(bgreen | "Completed")
